@@ -24,6 +24,8 @@ jobs:
         run: chmod +x gradlew
       - name: Build with Gradle
         run: ./gradlew build
+      - name: Show all folders
+        run: ls -R
 
   TestUpload:
     needs: Build
