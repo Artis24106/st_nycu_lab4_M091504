@@ -44,9 +44,7 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: hello_world
-
-      - name: Display world.txt
-        run: cat hello_world
-
       - name: Show all folders
         run: ls -R
+      - name: Display world.txt
+        run: cat world.txt
