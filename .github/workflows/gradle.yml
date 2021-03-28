@@ -20,7 +20,7 @@ jobs:
           java-version: 1.8
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-      - name: Build with Gradle
+      - name: Compile with Gradle
         run: ./gradlew classes
       - uses: actions/cache@v2
         with:
@@ -65,6 +65,10 @@ jobs:
         run: chmod +x gradlew
       - name: Test with Gradle
         run: ./gradlew test
+      - uses: actions/upload-artifact@v2
+        with:
+          path: ./build/reports
+          name: testReport
       - name: Show all folders
         run: ls -R
 
@@ -94,8 +98,29 @@ jobs:
         run: ls -R
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-      - name: Test with Gradle
+      - name: Assemble with Gradle
         run: ./gradlew assemble
       - name: Show all folders
         run: ls -R
+      - uses: actions/upload-artifact@v2
+        with:
+          path: ./build/libs/lab4-1.0-SNAPSHOT.jar
+          name: buildJar
+
+  Release:
+    needs: Assemble
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: buildJar
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: lab4-1.0-SNAPSHOT.jar
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
