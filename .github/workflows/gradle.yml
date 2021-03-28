@@ -57,6 +57,7 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: compiled_classes
+          path: ./build
 
       - name: Show all folders
         run: ls -R
@@ -88,6 +89,7 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: compiled_classes
+          path: ./build
       - name: Show all folders
         run: ls -R
       - name: Grant execute permission for gradlew
@@ -97,13 +99,3 @@ jobs:
       - name: Show all folders
         run: ls -R
 
-  TestDownload:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/download-artifact@v2
-        with:
-          name: hello_world
-      - name: Show all folders
-        run: ls -R
-      - name: Display world.txt
-        run: cat world.txt
