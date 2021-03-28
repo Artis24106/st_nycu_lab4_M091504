@@ -32,8 +32,8 @@ jobs:
             ${{ runner.os }}-gradle-
       - uses: actions/upload-artifact@v2
         with:
-          path: ./build/libs/lab4-1.0-SNAPSHOT.jar
-          name: build_jar
+          path: ./build/*
+          name: compiled_classes
       - name: Show all folders
         run: ls -R
 
@@ -54,6 +54,10 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+      - uses: actions/download-artifact@v2
+        with:
+          name: compiled_classes
+
       - name: Show all folders
         run: ls -R
       - name: Grant execute permission for gradlew
@@ -81,6 +85,9 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+      - uses: actions/download-artifact@v2
+        with:
+          name: compiled_classes
       - name: Show all folders
         run: ls -R
       - name: Grant execute permission for gradlew
