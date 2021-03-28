@@ -26,6 +26,7 @@ public class Game {
         } else {
             System.out.printf("%s win!%n", player1.checkWin(player2) ? player1.getName() : player2.getName());
         }
+        
     }
 }
 
