@@ -24,10 +24,11 @@ jobs:
         run: ./gradlew compileJava
       - uses: actions/cache@v2
         with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-            ./build/*
+          path: .
+#           path: |
+#             ~/.gradle/caches
+#             ~/.gradle/wrapper
+#             ./build/*
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
@@ -47,15 +48,16 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-#       - uses: actions/cache@v2
-#         with:
+      - uses: actions/cache@v2
+        with:
+          path: .
 #           path: |
 #             ~/.gradle/caches
 #             ~/.gradle/wrapper
 #             ./build/*
-#           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-#           restore-keys: |
-#             ${{ runner.os }}-gradle-
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
 #       - uses: actions/download-artifact@v2
 #         with:
 #           name: compiled_classes
@@ -86,10 +88,11 @@ jobs:
           java-version: 1.8
       - uses: actions/cache@v2
         with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-            ./build/*
+          path: .
+#           path: |
+#             ~/.gradle/caches
+#             ~/.gradle/wrapper
+#             ./build/*
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
