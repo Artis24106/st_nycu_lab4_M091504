@@ -3,7 +3,7 @@
 
 name: Java CI with Gradle **Markdown Test**
 
-on: [push]
+on: [ push ]
 
 jobs:
   Compile:
@@ -18,20 +18,16 @@ jobs:
         run: chmod +x gradlew
       - name: Compile with Gradle
         run: ./gradlew compileJava
+      - name: Set version as env
+        run: ./gradlew -q printVersionName
+      - env:
+          HAHA: 123
       - uses: actions/cache@v2
         with:
           path: ./**/*
-#           path: |
-#             ~/.gradle/caches
-#             ~/.gradle/wrapper
-#             ./build/*
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-#       - uses: actions/upload-artifact@v2
-#         with:
-#           path: ./build/*
-#           name: compiled_classes
       - name: Show all folders
         run: ls -R
       - name: Show env
@@ -49,17 +45,17 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: ./**/*
-#           path: |
-#             ~/.gradle/caches
-#             ~/.gradle/wrapper
-#             ./build/*
+          #           path: |
+          #             ~/.gradle/caches
+          #             ~/.gradle/wrapper
+          #             ./build/*
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-#       - uses: actions/download-artifact@v2
-#         with:
-#           name: compiled_classes
-#           path: ./build
+      #       - uses: actions/download-artifact@v2
+      #         with:
+      #           name: compiled_classes
+      #           path: ./build
 
       - name: Show all folders
         run: ls -R
@@ -87,17 +83,17 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: ./**/*
-#           path: |
-#             ~/.gradle/caches
-#             ~/.gradle/wrapper
-#             ./build/*
+          #           path: |
+          #             ~/.gradle/caches
+          #             ~/.gradle/wrapper
+          #             ./build/*
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-#       - uses: actions/download-artifact@v2
-#         with:
-#           name: compiled_classes
-#           path: ./build
+      #       - uses: actions/download-artifact@v2
+      #         with:
+      #           name: compiled_classes
+      #           path: ./build
       - name: Show all folders
         run: ls -R
       - name: Grant execute permission for gradlew
