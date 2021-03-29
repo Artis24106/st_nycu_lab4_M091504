@@ -21,7 +21,7 @@ jobs:
       - name: Compile with Gradle
         run: ./gradlew compileJava
       - name: Set version as env
-        run: ./gradlew printVersionName
+        run: ./gradlew printOutputJarName
       - uses: actions/cache@v2
         with:
           path: ./**/*
