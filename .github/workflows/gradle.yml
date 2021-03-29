@@ -27,13 +27,14 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
+            ./build/*
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-      - uses: actions/upload-artifact@v2
-        with:
-          path: ./build/*
-          name: compiled_classes
+#       - uses: actions/upload-artifact@v2
+#         with:
+#           path: ./build/*
+#           name: compiled_classes
       - name: Show all folders
         run: ls -R
 
@@ -51,13 +52,14 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
+            ./build/*
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-      - uses: actions/download-artifact@v2
-        with:
-          name: compiled_classes
-          path: ./build
+#       - uses: actions/download-artifact@v2
+#         with:
+#           name: compiled_classes
+#           path: ./build
 
       - name: Show all folders
         run: ls -R
