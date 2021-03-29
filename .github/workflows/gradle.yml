@@ -24,6 +24,8 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+      - name: INV= =
+        run: export MY_JAR_NAME=`./gradlew printOutputJarName`
       - name: Show all folders
         run: ls -R
       - name: Show env
@@ -82,8 +84,6 @@ jobs:
         run: ./gradlew assemble
       - name: Show all folders
         run: ls -R
-      - name: INV
-        run: export MY_JAR_NAME=`./gradlew printOutputJarName`
       - uses: actions/upload-artifact@v2
         with:
           path: ./build/libs/${{ env.MY_JAR_NAME }}
