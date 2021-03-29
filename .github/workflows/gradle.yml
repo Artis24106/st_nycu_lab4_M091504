@@ -8,6 +8,8 @@ on: [ push ]
 jobs:
   Compile:
     runs-on: ubuntu-latest
+    env:
+      HAHA: 123
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK 1.8
@@ -20,8 +22,6 @@ jobs:
         run: ./gradlew compileJava
       - name: Set version as env
         run: ./gradlew -q printVersionName
-      - env:
-          HAHA: 123
       - uses: actions/cache@v2
         with:
           path: ./**/*
