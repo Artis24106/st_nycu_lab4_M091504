@@ -29,6 +29,6 @@ jar {
 
 task printOutputJarName {
     doLast {
-        println 'lab4-' + version + '.jar'
+        println rootProject.name + '-' + version + '.jar'
     }
 }

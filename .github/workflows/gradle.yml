@@ -18,9 +18,6 @@ jobs:
         run: chmod +x gradlew
       - name: Compile with Gradle
         run: ./gradlew compileJava
-      - name: Retrieve version
-        run: |
-          echo ::set-env name=MY_JAR_NAME::$(./gradlew printOutputJarName)
       - uses: actions/cache@v2
         with:
           path: ./**/*
@@ -85,6 +82,8 @@ jobs:
         run: ./gradlew assemble
       - name: Show all folders
         run: ls -R
+      - name: INV
+        run: export MY_JAR_NAME=`./gradlew printOutputJarName`
       - uses: actions/upload-artifact@v2
         with:
           path: ./build/libs/${{ env.MY_JAR_NAME }}
