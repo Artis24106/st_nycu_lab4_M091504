@@ -24,8 +24,6 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-      - name: INV= =
-        run: export MY_JAR_NAME='lab4-1.0-SNAPSHOT.jar'
       - name: Show all folders
         run: ls -R
       - name: Show env
@@ -46,9 +44,6 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-
-      - name: Show all folders
-        run: ls -R
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Test with Gradle
@@ -57,9 +52,6 @@ jobs:
         with:
           path: ./build/reports
           name: testReport
-      - name: Show all folders
-        run: ls -R
-
 
   Assemble:
     needs: Test
@@ -76,17 +68,13 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-      - name: Show all folders
-        run: ls -R
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Assemble with Gradle
         run: ./gradlew assemble
-      - name: Show all folders
-        run: ls -R
       - uses: actions/upload-artifact@v2
         with:
-          path: ./build/libs/${{ env.MY_JAR_NAME }}
+          path: ./build/libs/lab4-1.0-SNAPSHOT.jar
           name: buildJar
 
   Release:
@@ -102,7 +90,6 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          files: ${{ env.MY_JAR_NAME }}
+          files: lab4-1.0-SNAPSHOT.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
