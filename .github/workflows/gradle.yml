@@ -25,7 +25,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
       - name: INV= =
-        run: export MY_JAR_NAME=`./gradlew printOutputJarName`
+        run: export MY_JAR_NAME='lab4-1.0-SNAPSHOT.jar'
       - name: Show all folders
         run: ls -R
       - name: Show env
