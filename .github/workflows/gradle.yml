@@ -8,8 +8,6 @@ on: [ push ]
 jobs:
   Compile:
     runs-on: ubuntu-latest
-    env:
-      HAHA: 123
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK 1.8
@@ -20,8 +18,9 @@ jobs:
         run: chmod +x gradlew
       - name: Compile with Gradle
         run: ./gradlew compileJava
-      - name: Set version as env
-        run: ./gradlew printOutputJarName
+      - name: Retrieve version
+        run: |
+          echo ::set-env name=MY_JAR_NAME::$(./gradlew printOutputJarName)
       - uses: actions/cache@v2
         with:
           path: ./**/*
@@ -45,17 +44,9 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: ./**/*
-          #           path: |
-          #             ~/.gradle/caches
-          #             ~/.gradle/wrapper
-          #             ./build/*
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-      #       - uses: actions/download-artifact@v2
-      #         with:
-      #           name: compiled_classes
-      #           path: ./build
 
       - name: Show all folders
         run: ls -R
@@ -83,17 +74,9 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: ./**/*
-          #           path: |
-          #             ~/.gradle/caches
-          #             ~/.gradle/wrapper
-          #             ./build/*
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-      #       - uses: actions/download-artifact@v2
-      #         with:
-      #           name: compiled_classes
-      #           path: ./build
       - name: Show all folders
         run: ls -R
       - name: Grant execute permission for gradlew
@@ -104,7 +87,7 @@ jobs:
         run: ls -R
       - uses: actions/upload-artifact@v2
         with:
-          path: ./build/libs/lab4-1.0-SNAPSHOT.jar
+          path: ./build/libs/${{ env.MY_JAR_NAME }}
           name: buildJar
 
   Release:
@@ -120,7 +103,7 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          files: lab4-1.0-SNAPSHOT.jar
+          files: ${{ env.MY_JAR_NAME }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
