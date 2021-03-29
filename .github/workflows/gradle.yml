@@ -3,11 +3,7 @@
 
 name: Java CI with Gradle **Markdown Test**
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: [push]
 
 jobs:
   Compile:
