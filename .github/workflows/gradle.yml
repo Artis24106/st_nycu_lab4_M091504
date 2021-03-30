@@ -74,7 +74,7 @@ jobs:
         run: ./gradlew assemble
       - uses: actions/upload-artifact@v2
         with:
-          path: ./build/libs/lab4-1.0-SNAPSHOT.jar
+          path: ./build/libs/*.jar
           name: buildJar
 
   Release:
@@ -90,6 +90,6 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          files: lab4-1.0-SNAPSHOT.jar
+          files: ./*.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
