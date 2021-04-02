@@ -24,10 +24,6 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-      - name: Show all folders
-        run: ls -R
-      - name: Show env
-        run: env
 
   Test:
     needs: Compile
